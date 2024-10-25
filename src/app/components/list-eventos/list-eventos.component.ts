@@ -7,6 +7,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandlerService } from '../../services/error-handler.service'; // Asegúrate de importar el servicio
 
 @Component({
   selector: 'app-list-eventos',
@@ -21,7 +23,10 @@ export class ListEventosComponent implements OnInit {
   isLoading = true;
   errorMessage: string | null = null;
 
-  constructor(private eventoService: EventoService) {}
+  constructor(
+    private eventoService: EventoService,
+    private errorHandler: ErrorHandlerService
+  ) {}
 
   ngOnInit(): void {
     this.loadEventos();
@@ -30,13 +35,13 @@ export class ListEventosComponent implements OnInit {
   loadEventos() {
     this.isLoading = true;
     this.eventoService.getEventos().subscribe(
-      eventos => {
+      (eventos: Evento[]) => {
         this.dataSource.data = eventos;
         this.isLoading = false;
       },
-      error => {
+      (error: HttpErrorResponse) => {
         console.error('Error al cargar los eventos:', error);
-        this.errorMessage = 'No se pudieron cargar los eventos. Por favor, inténtelo de nuevo más tarde.'; // Mensaje de error
+        this.errorMessage = this.errorHandler.getErrorMessage(error);
         this.isLoading = false;
       }
     );
