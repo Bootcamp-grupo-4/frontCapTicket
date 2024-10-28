@@ -15,13 +15,19 @@ export class EventoService {
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener todos los eventos como Observable de Evento[]
+  //* Método para obtener todos los eventos como Observable de Evento[]
   public getEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.eventoUrl, httpOptions);
   }
 
+  //* Método para añadir evento
   addEvento(evento: Evento): Observable<Evento> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Evento>(this.eventoUrl, evento, { headers });
+  }
+  //* Método para eliminar un evento por su ID
+  public deleteEvento(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.eventoUrl}/${id}`, httpOptions);
+
   }
 }
