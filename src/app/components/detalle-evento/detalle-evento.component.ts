@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { Evento } from '../../models/evento';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-detalle-evento',
@@ -15,9 +16,10 @@ import { Evento } from '../../models/evento';
 export class DetalleEventoComponent {
   constructor(
     public dialogRef: MatDialogRef<DetalleEventoComponent>,
+    private eventoService: EventoService,
     @Inject(MAT_DIALOG_DATA) public data: Evento,
     private router: Router
-  ) {}
+  ) { }
 
   cerrar(): void {
     this.dialogRef.close();
@@ -26,5 +28,10 @@ export class DetalleEventoComponent {
   irAEditar(): void {
     this.dialogRef.close();
     this.router.navigate([`/edit/${this.data.id}`]);
+  }
+
+  irACompra(): void {
+    this.dialogRef.close();
+    this.router.navigate([`/compra/${this.data.id}`]);
   }
 }
