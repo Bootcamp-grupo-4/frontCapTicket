@@ -5,6 +5,7 @@ import { ErrorHandlerService } from '../../services/error-handler.service';
 import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Evento } from '../../models/evento';
+import { ActivatedRoute } from '@angular/router';
 
 describe('ListEventosComponent', () => {
   let component: ListEventosComponent;
@@ -21,6 +22,15 @@ describe('ListEventosComponent', () => {
       providers: [
         { provide: EventoService, useValue: eventoServiceMock },
         { provide: ErrorHandlerService, useValue: errorHandlerMock },
+        { provide: ActivatedRoute,
+          useValue: {
+          snapshot: {
+              paramMap: {
+              get: (key: string) => key === 'id' ? '1' : null
+              }
+          }
+          }
+      }
       ],
     }).compileComponents();
 
@@ -36,32 +46,34 @@ describe('ListEventosComponent', () => {
 
   it('debe cargar eventos en ngOnInit', () => {
     const mockEventos: Evento[] = [
-      { 
-        id: 1, 
-        nombre: 'Evento 1', 
-        descripcion: 'Descripción del evento 1', 
-        fechaEvento: new Date(), 
-        precioMinimo: 10, 
-        precioMaximo: 20, 
-        localidad: 'Ciudad A', 
-        nombreDelRecinto: 'Recinto A', 
-        genero: 'Rock', 
-        mostrar: true 
+      {
+        id: 1,
+        nombre: 'Evento 1',
+        descripcion: 'Descripción del evento 1',
+        fechaEvento: new Date(),
+        precioMinimo: 10,
+        precio: 10,
+        precioMaximo: 20,
+        localidad: 'Ciudad A',
+        nombreDelRecinto: 'Recinto A',
+        genero: 'Rock',
+        mostrar: true
       },
-      { 
-        id: 2, 
-        nombre: 'Evento 2', 
-        descripcion: 'Descripción del evento 2', 
-        fechaEvento: new Date(), 
-        precioMinimo: 15, 
-        precioMaximo: 25, 
-        localidad: 'Ciudad B', 
-        nombreDelRecinto: 'Recinto B', 
-        genero: 'Pop', 
-        mostrar: false 
+      {
+        id: 2,
+        nombre: 'Evento 2',
+        descripcion: 'Descripción del evento 2',
+        fechaEvento: new Date(),
+        precioMinimo: 15,
+        precio: 15,
+        precioMaximo: 25,
+        localidad: 'Ciudad B',
+        nombreDelRecinto: 'Recinto B',
+        genero: 'Pop',
+        mostrar: false
       },
     ];
-    
+
 
     eventoService.getEventos.and.returnValue(of(mockEventos));
     component.ngOnInit();

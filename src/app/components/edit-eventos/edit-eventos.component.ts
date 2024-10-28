@@ -1,4 +1,5 @@
-import { Component, isDevMode, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 import { EventoService } from '../../services/evento.service';
 import { Evento } from '../../models/evento';
 import { CommonModule } from '@angular/common';
@@ -46,21 +47,29 @@ export class EditEventosComponent implements OnInit {
 
       const response = await this.eventoService.editEvento(this.evento).toPromise();
       console.log('Evento editado con éxito:', response);
-
       this.router.navigate(['/list']);
     } catch (error) {
-      console.error('Error al añadir el evento:', error);
-      this.errorMessage = 'Hubo un error al añadir el evento. Inténtalo de nuevo.';
+      console.error('Error al editar el evento:', error);
+      if (error instanceof HttpErrorResponse) {
+        this.errorMessage = this.errorHandler.getErrorMessage(error);
+      } else {
+        this.errorMessage = 'Ocurrió un error inesperado. Inténtalo de nuevo.';
+      }
     }
   }
 
   loadEvento() {
     let id: string = this.getId()
-    this.eventoService.getEventoById(id).subscribe((evento: Evento) => {
-      if (evento) {
-        this.evento = evento
-      }
-    });
+    this.eventoService.getEventoById(id).subscribe(
+      (evento: Evento) => {
+        if (evento) {
+          this.evento = evento
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Error al cargar el evento:', error);
+        this.errorMessage = this.errorHandler.getErrorMessage(error);
+      });
   }
 
   getId(): string {
@@ -72,5 +81,8 @@ export class EditEventosComponent implements OnInit {
     return id;
   }
 
+  goBack() {
+    this.router.navigate(['/list']);
+  }
 
 }
