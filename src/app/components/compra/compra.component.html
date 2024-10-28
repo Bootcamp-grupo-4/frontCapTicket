@@ -1,45 +1,51 @@
-<div class="form-container">
-  <h2 class="title">Comprar entrada</h2>
+<div class="background-container">
+  <div class="form-container">
+    <h2 class="title">Comprar entrada</h2>
 
-  <p>
-    <span>Correo: </span>
-    <input type="email" [(ngModel)]="compraItem.correoTitular" />
-  </p>
+    <p>
+      <span>Correo: </span>
+      <input type="email" [(ngModel)]="compraItem.correoTitular" />
+    </p>
 
-  <p>
-    <span>Nombre Titular: </span>
-    <input type="text" [(ngModel)]="compraItem.nombreTitular" />
-  </p>
+    <p>
+      <span>Nombre Titular: </span>
+      <input type="text" [(ngModel)]="compraItem.nombreTitular" />
+    </p>
 
-  <p>
-    <span>Numero de Tarjeta: </span>
-    <input type="text" [(ngModel)]="compraItem.numeroTarjeta" />
-  </p>
+    <p>
+      <span>Número de Tarjeta: </span>
+      <input type="text" [(ngModel)]="compraItem.numeroTarjeta" />
+    </p>
 
-  <p>
-    <span>Mes caducidad: </span>
-    <input type="number" [(ngModel)]="compraItem.mesCaducidad" />
-  </p>
+    <p>
+      <span>Mes caducidad: </span>
+      <input type="number" [(ngModel)]="compraItem.mesCaducidad" />
+    </p>
 
-  <p>
-    <span>Año caducidad: </span>
-    <input type="number" [(ngModel)]="compraItem.yearCaducidad" />
-  </p>
+    <p>
+      <span>Año caducidad: </span>
+      <input type="number" [(ngModel)]="compraItem.yearCaducidad" />
+    </p>
 
-  <p>
-    <span>CVV: </span>
-    <input type="number" [(ngModel)]="compraItem.cvv" />
-  </p>
+    <p>
+      <span>CVV: </span>
+      <input type="number" [(ngModel)]="compraItem.cvv" />
+    </p>
 
-  <p>
-    <span>Emisor: </span>
-    <input type="text" [(ngModel)]="compraItem.emisor" />
-  </p>
+    <p>
+      <span>Emisor: </span>
+      <input type="text" [(ngModel)]="compraItem.emisor" />
+    </p>
 
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-  <p>
-    <button mat-raised-button color="primary" (click)="compra()">Comprar</button>
-    <button mat-button color="warn" (click)="goBack()">Cancelar Compra</button>
-  </p>
+    <p>
+      <button mat-raised-button color="primary" (click)="compra()">
+        Comprar
+      </button>
+      <button mat-button color="warn" (click)="goBack()">
+        Cancelar Compra
+      </button>
+    </p>
+  </div>
 </div>
