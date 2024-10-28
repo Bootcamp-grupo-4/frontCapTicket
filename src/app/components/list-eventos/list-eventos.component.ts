@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router'
 import { ErrorHandlerService } from '../../services/error-handler.service'; 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../shared/confirm-delete-dialog/confirm-delete-dialog.component';
-import { DetalleEventoComponent } from '../../detalle-evento/detalle-evento.component';
+import { DetalleEventoComponent } from '../detalle-evento/detalle-evento.component';
 
 @Component({
   selector: 'app-list-eventos',

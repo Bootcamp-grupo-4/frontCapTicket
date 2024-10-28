@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { Evento } from '../models/evento';
+import { Evento } from '../../models/evento';
 
 @Component({
   selector: 'app-detalle-evento',

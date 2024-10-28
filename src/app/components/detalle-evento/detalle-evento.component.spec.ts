@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetalleEventoComponent } from './detalle-evento.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Evento } from '../models/evento';
+import { Evento } from '../../models/evento';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
