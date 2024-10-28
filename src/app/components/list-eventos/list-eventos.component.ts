@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { EventoService } from '../../services/evento.service';
 import { Evento } from '../../models/evento';
@@ -11,22 +11,26 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { ConfirmDeleteDialogComponent } from '../../shared/confirm-delete-dialog/confirm-delete-dialog.component';
 import { DetalleEventoComponent } from '../detalle-evento/detalle-evento.component';
 
 @Component({
   selector: 'app-list-eventos',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, RouterModule],
+  imports: [CommonModule, MatSortModule, MatTableModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, RouterModule, MatSort],
   templateUrl: './list-eventos.component.html',
   styleUrls: ['./list-eventos.component.scss']
 })
-export class ListEventosComponent implements OnInit {
+export class ListEventosComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'nombre', 'fechaEvento', 'precio', 'localidad', 'acciones'];
   dataSource = new MatTableDataSource<Evento>();
   isLoading = true;
   errorMessage: string | null = null;
 
+  @ViewChild(MatSort)
+  sort!: MatSort;
+  
   constructor(
     private eventoService: EventoService,
     private errorHandler: ErrorHandlerService,
@@ -35,6 +39,10 @@ export class ListEventosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadEventos();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
   }
 
   loadEventos() {
