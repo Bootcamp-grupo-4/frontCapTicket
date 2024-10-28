@@ -64,6 +64,7 @@ describe('ListEventosComponent', () => {
         nombre: 'Evento 2', 
         descripcion: 'Descripción del evento 2', 
         fechaEvento: new Date(), 
+        precio: 10,
         precioMinimo: 15, 
         precioMaximo: 25, 
         localidad: 'Ciudad B', 
