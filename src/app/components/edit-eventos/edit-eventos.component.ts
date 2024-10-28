@@ -43,8 +43,6 @@ export class EditEventosComponent implements OnInit {
 
   async editEvento() {
     try {
-      this.evento.precioMaximo = this.evento.precioMinimo;
-
       const response = await this.eventoService.editEvento(this.evento).toPromise();
       console.log('Evento editado con éxito:', response);
       this.router.navigate(['/list']);
