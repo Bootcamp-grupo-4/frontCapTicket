@@ -13,16 +13,17 @@ describe('ListEventosComponent', () => {
   let errorHandler: jasmine.SpyObj<ErrorHandlerService>;
 
   beforeEach(async () => {
-    const eventoServiceMock = jasmine.createSpyObj('EventoService', ['getEventos']);
+    const eventoServiceMock = jasmine.createSpyObj('EventoService', ['getEventos', 'deleteEvento']);
     const errorHandlerMock = jasmine.createSpyObj('ErrorHandlerService', ['getErrorMessage']);
 
     await TestBed.configureTestingModule({
+      imports: [ListEventosComponent],  // Importamos el componente standalone en lugar de declararlo
       providers: [
         { provide: EventoService, useValue: eventoServiceMock },
         { provide: ErrorHandlerService, useValue: errorHandlerMock },
       ],
     }).compileComponents();
-    
+
     fixture = TestBed.createComponent(ListEventosComponent);
     component = fixture.componentInstance;
     eventoService = TestBed.inject(EventoService) as jasmine.SpyObj<EventoService>;
@@ -81,5 +82,4 @@ describe('ListEventosComponent', () => {
     expect(component.errorMessage).toBe('Error de carga');
     expect(component.isLoading).toBeFalse();
   });
-
 });

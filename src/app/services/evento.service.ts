@@ -11,12 +11,17 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class EventoService {
-  private eventoUrl = 'http://localhost:8081/evento';
+  private eventoUrl = 'http://localhost:7777/evento';
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener todos los eventos como Observable de Evento[]
+  //* Método para obtener todos los eventos como Observable de Evento[]
   public getEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.eventoUrl, httpOptions);
+  }
+
+  //* Método para eliminar un evento por su ID
+  public deleteEvento(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.eventoUrl}/${id}`, httpOptions);
   }
 }

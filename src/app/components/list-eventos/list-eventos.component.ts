@@ -8,7 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandlerService } from '../../services/error-handler.service'; // Asegúrate de importar el servicio
+import { ErrorHandlerService } from '../../services/error-handler.service'; 
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../../shared/confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-list-eventos',
@@ -25,7 +27,8 @@ export class ListEventosComponent implements OnInit {
 
   constructor(
     private eventoService: EventoService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -45,5 +48,26 @@ export class ListEventosComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  //* Método para eliminar un evento
+  deleteEvento(id: number, nombre: string) {
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      data: { name: nombre } // Pasar el nombre del evento al diálogo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.eventoService.deleteEvento(id).subscribe(
+          () => {
+            this.dataSource.data = this.dataSource.data.filter(evento => evento.id !== id);
+          },
+          (error: HttpErrorResponse) => {
+            console.error('Error al eliminar el evento:', error);
+            this.errorMessage = this.errorHandler.getErrorMessage(error);
+          }
+        );
+      }
+    });
   }
 }
