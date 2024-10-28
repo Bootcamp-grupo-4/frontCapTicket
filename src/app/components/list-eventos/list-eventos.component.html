@@ -42,20 +42,7 @@
             }}</mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="precioMinimo">
-          <mat-header-cell *matHeaderCellDef> Precio Mínimo </mat-header-cell>
-          <mat-cell *matCellDef="let evento">{{
-            evento.precioMinimo | currency
-            }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="precioMaximo">
-          <mat-header-cell *matHeaderCellDef> Precio Máximo </mat-header-cell>
-          <mat-cell *matCellDef="let evento">{{
-            evento.precioMaximo | currency
-            }}</mat-cell>
-        </ng-container>
-
+        <!-- Columna Precio -->
         <ng-container matColumnDef="precio">
           <mat-header-cell *matHeaderCellDef> Precio Actual </mat-header-cell>
           <mat-cell *matCellDef="let evento">{{
@@ -74,14 +61,22 @@
             <button mat-icon-button color="primary" aria-label="Edit" [routerLink]="['/edit', evento.id]"> 
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" aria-label="Delete" (click)="deleteEvento(evento.id, evento.nombre)">
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Delete"
+              (click)="deleteEvento(evento.id, evento.nombre)">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="openEventoDetails(row.id)"
+          class="clickable-row">
+        </mat-row>
       </mat-table>
     </ng-template>
   </ng-template>

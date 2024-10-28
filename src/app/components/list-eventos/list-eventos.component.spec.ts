@@ -18,7 +18,7 @@ describe('ListEventosComponent', () => {
     const errorHandlerMock = jasmine.createSpyObj('ErrorHandlerService', ['getErrorMessage']);
 
     await TestBed.configureTestingModule({
-      imports: [ListEventosComponent],  // Importamos el componente standalone en lugar de declararlo
+      imports: [ListEventosComponent],
       providers: [
         { provide: EventoService, useValue: eventoServiceMock },
         { provide: ErrorHandlerService, useValue: errorHandlerMock },
@@ -59,18 +59,17 @@ describe('ListEventosComponent', () => {
         genero: 'Rock',
         mostrar: true
       },
-      {
-        id: 2,
-        nombre: 'Evento 2',
-        descripcion: 'Descripción del evento 2',
-        fechaEvento: new Date(),
-        precioMinimo: 15,
-        precio: 15,
-        precioMaximo: 25,
-        localidad: 'Ciudad B',
-        nombreDelRecinto: 'Recinto B',
-        genero: 'Pop',
-        mostrar: false
+      { 
+        id: 2, 
+        nombre: 'Evento 2', 
+        descripcion: 'Descripción del evento 2', 
+        fechaEvento: new Date(), 
+        precioMinimo: 15, 
+        precioMaximo: 25, 
+        localidad: 'Ciudad B', 
+        nombreDelRecinto: 'Recinto B', 
+        genero: 'Pop', 
+        mostrar: false 
       },
     ];
 

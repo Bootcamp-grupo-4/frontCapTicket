@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router'
 import { ErrorHandlerService } from '../../services/error-handler.service'; 
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../shared/confirm-delete-dialog/confirm-delete-dialog.component';
+import { DetalleEventoComponent } from '../../detalle-evento/detalle-evento.component';
 
 @Component({
   selector: 'app-list-eventos',
@@ -21,7 +22,7 @@ import { ConfirmDeleteDialogComponent } from '../../shared/confirm-delete-dialog
   styleUrls: ['./list-eventos.component.scss']
 })
 export class ListEventosComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nombre', 'fechaEvento', 'precioMinimo', 'precioMaximo' , 'precio' , 'localidad', 'acciones'];
+  displayedColumns: string[] = ['id', 'nombre', 'fechaEvento', 'precio', 'localidad', 'acciones'];
   dataSource = new MatTableDataSource<Evento>();
   isLoading = true;
   errorMessage: string | null = null;
@@ -71,5 +72,19 @@ export class ListEventosComponent implements OnInit {
         );
       }
     });
+  }
+
+  openEventoDetails(id: string): void {
+    this.eventoService.getEventoById(id).subscribe(
+      (evento) => {
+        this.dialog.open(DetalleEventoComponent, {
+          width: '400px',
+          data: evento
+        });
+      },
+      (error) => {
+        console.error('Error al cargar el evento', error);
+      }
+    );
   }
 }

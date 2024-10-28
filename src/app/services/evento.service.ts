@@ -39,4 +39,18 @@ export class EventoService {
   public deleteEvento(id: number): Observable<void> {
     return this.http.delete<void>(`${this.eventoUrl}/${id}`, httpOptions);
   }
+
+  addEvento(evento: Evento): Observable<Evento> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Evento>(this.eventoUrl, evento, { headers });
+  }
+
+  editEvento(evento: Evento): Observable<Evento> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Evento>(this.eventoUrl, evento, { headers });
+  }
+
+  getEventoById(id: string): Observable<Evento> {
+    return this.http.get<Evento>(this.eventoUrl + '/' + id, httpOptions);
+  }
 }
