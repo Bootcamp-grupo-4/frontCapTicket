@@ -9,6 +9,7 @@ export class Evento {
     nombreDelRecinto!: string;
     genero!: string;
     mostrar!: boolean;
+    precio!: number;
   
     constructor(init?: Partial<Evento>) {
       Object.assign(this, init);
