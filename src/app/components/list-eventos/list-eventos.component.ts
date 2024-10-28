@@ -8,8 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RouterModule } from '@angular/router'
-import { ErrorHandlerService } from '../../services/error-handler.service'; 
+import { RouterModule } from '@angular/router';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../shared/confirm-delete-dialog/confirm-delete-dialog.component';
 import { DetalleEventoComponent } from '../detalle-evento/detalle-evento.component';
@@ -43,7 +43,6 @@ export class ListEventosComponent implements OnInit {
       (eventos: Evento[]) => {
         this.dataSource.data = eventos;
         this.isLoading = false;
-        
       },
       (error: HttpErrorResponse) => {
         console.error('Error al cargar los eventos:', error);

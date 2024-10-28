@@ -1,11 +1,12 @@
 <div class="table-container">
-  <h2 class="title">CapTicket</h2>
-
-  <div class="add-event-button">
-    <button mat-raised-button color="primary" [routerLink]="['/add']">
-      Añadir Evento
-    </button>
-  </div>
+  <header class="header-bar">
+    <h2 class="title">CapTicket</h2>
+    <div class="add-event-button">
+      <button mat-raised-button color="primary" [routerLink]="['/add']">
+        Añadir Evento
+      </button>
+    </div>
+  </header>
 
   <ng-container *ngIf="isLoading; else dataTable">
     <div class="skeleton-loader">
@@ -23,7 +24,7 @@
     </div>
 
     <ng-template #table>
-      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-style">
         <!-- Columnas -->
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
@@ -37,17 +38,12 @@
 
         <ng-container matColumnDef="fechaEvento">
           <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
-          <mat-cell *matCellDef="let evento">{{
-            evento.fechaEvento | date : "shortDate"
-            }}</mat-cell>
+          <mat-cell *matCellDef="let evento">{{ evento.fechaEvento | date: 'shortDate' }}</mat-cell>
         </ng-container>
 
-        <!-- Columna Precio -->
         <ng-container matColumnDef="precio">
           <mat-header-cell *matHeaderCellDef> Precio Actual </mat-header-cell>
-          <mat-cell *matCellDef="let evento">{{
-            evento.precio | currency
-            }}</mat-cell>
+          <mat-cell *matCellDef="let evento">{{ evento.precio | currency }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="localidad">
