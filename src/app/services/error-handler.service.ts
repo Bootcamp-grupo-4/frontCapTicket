@@ -5,12 +5,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ErrorHandlerService {
-  constructor() {}
+  constructor() { }
 
   getErrorMessage(error: HttpErrorResponse): string {
     switch (error.status) {
       case 400:
-        return 'La solicitud es incorrecta. Por favor, revise los datos e intente nuevamente.';
+        return this.badRequestErrorHandler(error.error);
       case 401:
         return 'No está autorizado para realizar esta acción. Por favor, inicie sesión.';
       case 403:
@@ -24,5 +24,12 @@ export class ErrorHandlerService {
       default:
         return 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo más tarde.';
     }
+  }
+
+  badRequestErrorHandler(error: any): string {
+    if(error.error) {
+      return "Error: " + error.error + ". Mensaje: " + error.message;
+    }
+    return 'La solicitud es incorrecta. Por favor, revise los datos e intente nuevamente.';
   }
 }
