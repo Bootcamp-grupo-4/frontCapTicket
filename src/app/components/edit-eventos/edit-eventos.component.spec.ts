@@ -26,11 +26,11 @@ describe('EditEventosComponent', () => {
         { provide: Router, useValue: routerMock },
         { provide: ActivatedRoute,
             useValue: {
-            snapshot: {
-                paramMap: {
-                get: (key: string) => key === 'id' ? '1' : null
-                }
-            }
+              snapshot: {
+                  paramMap: {
+                  get: (key: string) => key === 'id' ? '1' : null
+                  }
+              }
             }
         }
       ]

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DetalleEventoComponent } from './detalle-evento.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Evento } from '../../models/evento';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,6 +40,16 @@ describe('DetalleEventoComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: mockEvento },
         { provide: MatDialogRef, useValue: dialogRef },
         { provide: Router, useValue: router },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: (key: string) => key === 'id' ? '1' : null
+              }
+            }
+          }
+        }
       ],
     }).compileComponents();
 
@@ -61,5 +71,5 @@ describe('DetalleEventoComponent', () => {
     expect(dialogRef.close).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith([`/edit/${mockEvento.id}`]);
   });
-  
+
 });

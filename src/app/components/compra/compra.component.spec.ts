@@ -1,35 +1,49 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CompraComponent } from './compra.component';
 import { FormsModule } from '@angular/forms';
-import { AddEventoComponent } from './compra.component';  // Es un componente standalone
 import { EventoService } from '../../services/evento.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { Evento } from '../../models/evento';
+import { CompraService } from '../../services/compra.service';
 
-describe('AddEventoComponent', () => {
-  let component: AddEventoComponent;
-  let fixture: ComponentFixture<AddEventoComponent>;
+describe('CompraComponent', () => {
+  let component: CompraComponent;
+  let fixture: ComponentFixture<CompraComponent>;
   let eventoService: jasmine.SpyObj<EventoService>;
+  let compraService: jasmine.SpyObj<CompraService>;
   let router: jasmine.SpyObj<Router>;
   let debugElement: DebugElement;
 
   beforeEach(async () => {
-    const eventoServiceMock = jasmine.createSpyObj('EventoService', ['addEvento']);
+    const eventoServiceMock = jasmine.createSpyObj('EventoService', ['getEventoById']);
+    const compraServiceMock = jasmine.createSpyObj('CompraService', ['compra']);
     const routerMock = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [AddEventoComponent, FormsModule],  
+      imports: [CompraComponent, FormsModule],
       providers: [
         { provide: EventoService, useValue: eventoServiceMock },
+        { provide: CompraService, useValue: compraServiceMock },
         { provide: Router, useValue: routerMock },
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: (key: string) => key === 'id' ? '1' : null
+              }
+            }
+          }
+        }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddEventoComponent);
+    fixture = TestBed.createComponent(CompraComponent);
     component = fixture.componentInstance;
     eventoService = TestBed.inject(EventoService) as jasmine.SpyObj<EventoService>;
+    compraService = TestBed.inject(CompraService) as jasmine.SpyObj<CompraService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     debugElement = fixture.debugElement;
   });
@@ -38,9 +52,9 @@ describe('AddEventoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería llamar a addEvento y navegar en caso de éxito', async () => {
-    const mockEvento: Evento = {
-      nombre: 'Evento de prueba',
+  it('debería llamar a comprar y navegar en caso de éxito', async () => {
+    const mockCompra: any = {
+      mensaje: 'Venta confirmada',
       descripcion: 'Descripción de prueba',
       fechaEvento: new Date('2024-10-01'),
       precioMinimo: 10,
@@ -52,21 +66,21 @@ describe('AddEventoComponent', () => {
       precio: 10,
     };
 
-    eventoService.addEvento.and.returnValue(of(mockEvento));
+    compraService.compra.and.returnValue(of(mockCompra));
 
-    await component.addEvento();
+    await component.compra();
 
-    expect(eventoService.addEvento).toHaveBeenCalled();
+    expect(compraService.compra).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/list']);
   });
 
   it('debería manejar el error y mostrar un mensaje de error', async () => {
-    const errorMessage = 'Error al añadir el evento';
-    eventoService.addEvento.and.returnValue(throwError(() => new Error(errorMessage)));
+    const errorMessage = 'Error al comprar entrada';
+    compraService.compra.and.returnValue(throwError(() => new Error(errorMessage)));
 
-    await component.addEvento();
+    await component.compra();
 
-    expect(eventoService.addEvento).toHaveBeenCalled();
+    expect(compraService.compra).toHaveBeenCalled();
     expect(component.errorMessage).toEqual('Ocurrió un error inesperado. Inténtalo de nuevo.');
   });
 
@@ -74,7 +88,7 @@ describe('AddEventoComponent', () => {
     component.evento.nombre = '';
     component.evento.descripcion = 'Descripción válida';
 
-    await component.addEvento();
+    await component.compra();
 
     expect(component.errorMessage).toEqual('Ocurrió un error inesperado. Inténtalo de nuevo.');
   });

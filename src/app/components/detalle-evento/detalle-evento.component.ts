@@ -16,7 +16,6 @@ import { EventoService } from '../../services/evento.service';
 export class DetalleEventoComponent {
   constructor(
     public dialogRef: MatDialogRef<DetalleEventoComponent>,
-    private eventoService: EventoService,
     @Inject(MAT_DIALOG_DATA) public data: Evento,
     private router: Router
   ) { }
