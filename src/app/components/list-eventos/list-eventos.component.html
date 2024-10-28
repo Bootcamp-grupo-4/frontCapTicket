@@ -1,0 +1,84 @@
+<div class="table-container">
+  <header class="header-bar">
+    <h2 class="title">CapTicket</h2>
+    <div class="add-event-button">
+      <button mat-raised-button color="primary" [routerLink]="['/add']">
+        Añadir Evento
+      </button>
+    </div>
+  </header>
+
+  <ng-container *ngIf="isLoading; else dataTable">
+    <div class="skeleton-loader">
+      <mat-spinner></mat-spinner>
+      Cargando eventos...
+    </div>
+  </ng-container>
+
+  <ng-template #dataTable>
+    <div *ngIf="errorMessage; else table">
+      <!-- Mensaje de error -->
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <ng-template #table>
+      <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table-style">
+        <!-- Columnas -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header mat-sort-header> ID </mat-header-cell>
+          <mat-cell *matCellDef="let evento"> {{ evento.id }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+          <mat-cell *matCellDef="let evento"> {{ evento.nombre }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaEvento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+          <mat-cell *matCellDef="let evento">{{ evento.fechaEvento | date: 'shortDate' }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="precio">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Precio Actual </mat-header-cell>
+          <mat-cell *matCellDef="let evento">{{ evento.precio | currency }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="localidad">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Localidad </mat-header-cell>
+          <mat-cell *matCellDef="let evento"> {{ evento.localidad }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </mat-header-cell>
+          <mat-cell *matCellDef="let evento">
+            <button
+              mat-icon-button
+              color="primary"
+              aria-label="Edit"
+              [routerLink]="['/edit', evento.id]"
+              (click)="$event.stopPropagation()"> <!-- Evita abrir detalles -->
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Delete"
+              (click)="deleteEvento(evento.id, evento.nombre); $event.stopPropagation()"> <!-- Evita abrir detalles -->
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="openEventoDetails(row.id)"
+          class="clickable-row">
+        </mat-row>
+      </mat-table>
+    </ng-template>
+  </ng-template>
+</div>

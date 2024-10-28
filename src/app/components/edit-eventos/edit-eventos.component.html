@@ -1,0 +1,52 @@
+<div class="form-container">
+
+  <h2 class="title">Editar Evento</h2>
+
+  <p>
+    <span>Nombre: </span>
+    <input type="text" [(ngModel)]="evento.nombre" />
+  </p>
+
+  <p>
+    <span>Descripción: </span>
+    <input type="text" [(ngModel)]="evento.descripcion" />
+  </p>
+
+  <p>
+    <span>Fecha del Evento: </span>
+    <input type="date" [(ngModel)]="evento.fechaEvento" />
+  </p>
+
+  <p>
+    <span>Precio Mínimo: </span>
+    <input type="number" [(ngModel)]="evento.precioMinimo" />
+  </p>
+
+  <p>
+    <span>Precio Máximo: </span>
+    <input type="number" [(ngModel)]="evento.precioMaximo" />
+  </p>
+
+  <p>
+    <span>Localidad: </span>
+    <input type="text" [(ngModel)]="evento.localidad" />
+  </p>
+
+  <p>
+    <span>Nombre del Recinto: </span>
+    <input type="text" [(ngModel)]="evento.nombreDelRecinto" />
+  </p>
+
+  <p>
+    <span>Género: </span>
+    <input type="text" [(ngModel)]="evento.genero" />
+  </p>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+
+  <p>
+    <button mat-raised-button color="primary" (click)="editEvento()">Editar Evento</button>
+    <button mat-button color="warn" (click)="goBack()">Volver atrás</button>
+  </p>
+</div>
