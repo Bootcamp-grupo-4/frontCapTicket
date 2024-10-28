@@ -42,12 +42,11 @@
     <input type="text" [(ngModel)]="evento.genero" />
   </p>
 
-
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
 
   <p>
     <button mat-raised-button color="primary" (click)="editEvento()">Editar Evento</button>
     <button mat-button color="warn" (click)="goBack()">Volver atrás</button>
   </p>
-
 </div>
