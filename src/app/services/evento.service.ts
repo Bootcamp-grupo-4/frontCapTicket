@@ -13,7 +13,7 @@ const httpOptions = {
 export class EventoService {
   private eventoUrl = 'http://localhost:7777/evento';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Método para obtener todos los eventos como Observable de Evento[]
   public getEventos(): Observable<Evento[]> {
@@ -23,5 +23,14 @@ export class EventoService {
   addEvento(evento: Evento): Observable<Evento> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Evento>(this.eventoUrl, evento, { headers });
+  }
+
+  editEvento(evento: Evento): Observable<Evento> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Evento>(this.eventoUrl, evento, { headers });
+  }
+
+  getEventoById(id: string): Observable<Evento> {
+    return this.http.get<Evento>(this.eventoUrl + '/' + id, httpOptions);
   }
 }

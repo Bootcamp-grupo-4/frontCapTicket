@@ -6,5 +6,5 @@ import { EditEventosComponent } from './components/edit-eventos/edit-eventos.com
 export const routes: Routes = [
     { path: 'list', component: ListEventosComponent },
     { path: 'add', component: AddEventoComponent },
-    { path: 'edit', component: EditEventosComponent}
+    { path: 'edit/:id', component: EditEventosComponent}
 ];

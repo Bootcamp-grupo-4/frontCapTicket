@@ -39,28 +39,28 @@
           <mat-header-cell *matHeaderCellDef> Fecha </mat-header-cell>
           <mat-cell *matCellDef="let evento">{{
             evento.fechaEvento | date : "shortDate"
-          }}</mat-cell>
+            }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="precioMinimo">
           <mat-header-cell *matHeaderCellDef> Precio Mínimo </mat-header-cell>
           <mat-cell *matCellDef="let evento">{{
             evento.precioMinimo | currency
-          }}</mat-cell>
+            }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="precioMaximo">
           <mat-header-cell *matHeaderCellDef> Precio Máximo </mat-header-cell>
           <mat-cell *matCellDef="let evento">{{
             evento.precioMaximo | currency
-          }}</mat-cell>
+            }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="precio">
           <mat-header-cell *matHeaderCellDef> Precio Actual </mat-header-cell>
           <mat-cell *matCellDef="let evento">{{
             evento.precio | currency
-          }}</mat-cell>
+            }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="localidad">
@@ -71,7 +71,7 @@
         <ng-container matColumnDef="acciones">
           <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
           <mat-cell *matCellDef="let evento">
-            <button mat-icon-button color="primary" aria-label="Edit" [routerLink]="['/edit']">
+            <button mat-icon-button color="primary" aria-label="Edit" [routerLink]="['/edit', evento.id]"> 
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" aria-label="Delete">
