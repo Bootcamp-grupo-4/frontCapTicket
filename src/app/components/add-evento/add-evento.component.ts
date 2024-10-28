@@ -37,7 +37,7 @@ export class AddEventoComponent {
 
   async addEvento() {
     try {
-      this.evento.precioMaximo = this.evento.precioMinimo;
+      this.evento.precio = this.evento.precioMinimo;
   
       const response = await this.eventoService.addEvento(this.evento).toPromise();
       console.log('Evento añadido con éxito:', response);

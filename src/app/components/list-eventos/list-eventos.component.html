@@ -58,14 +58,19 @@
         <ng-container matColumnDef="acciones">
           <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
           <mat-cell *matCellDef="let evento">
-            <button mat-icon-button color="primary" aria-label="Edit" [routerLink]="['/edit', evento.id]"> 
+            <button
+              mat-icon-button
+              color="primary"
+              aria-label="Edit"
+              [routerLink]="['/edit', evento.id]"
+              (click)="$event.stopPropagation()"> <!-- Evita abrir detalles -->
               <mat-icon>edit</mat-icon>
             </button>
             <button
               mat-icon-button
               color="warn"
               aria-label="Delete"
-              (click)="deleteEvento(evento.id, evento.nombre)">
+              (click)="deleteEvento(evento.id, evento.nombre); $event.stopPropagation()"> <!-- Evita abrir detalles -->
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>
