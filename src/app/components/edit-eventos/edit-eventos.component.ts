@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, isDevMode, OnInit } from '@angular/core';
 import { EventoService } from '../../services/evento.service';
 import { Evento } from '../../models/evento';
 import { CommonModule } from '@angular/common';
@@ -29,19 +29,6 @@ export class EditEventosComponent implements OnInit {
     precio: 0,
   };
 
-  eventoToEdit: any = {
-    nombre: '',
-    descripcion: '',
-    fechaEvento: '',
-    precioMinimo: 0,
-    precioMaximo: 0,
-    localidad: '',
-    nombreDelRecinto: '',
-    genero: '',
-    mostrar: true,
-    precio: 0,
-  };
-
   constructor(
     private eventoService: EventoService,
     private errorHandler: ErrorHandlerService,
@@ -57,7 +44,7 @@ export class EditEventosComponent implements OnInit {
     try {
       this.evento.precioMaximo = this.evento.precioMinimo;
 
-      const response = await this.eventoService.addEvento(this.evento).toPromise();
+      const response = await this.eventoService.editEvento(this.evento).toPromise();
       console.log('Evento editado con éxito:', response);
 
       this.router.navigate(['/list']);
@@ -68,8 +55,21 @@ export class EditEventosComponent implements OnInit {
   }
 
   loadEvento() {
-    let id = this.route.snapshot.paramMap.get("id");
-    console.log(typeof id)
+    let id: string = this.getId()
+    this.eventoService.getEventoById(id).subscribe((evento: Evento) => {
+      if (evento) {
+        this.evento = evento
+      }
+    });
+  }
+
+  getId(): string {
+    let idget = this.route.snapshot.paramMap.get("id");
+    let id: string = "";
+    if (idget) {
+      id = idget;
+    }
+    return id;
   }
 
 
