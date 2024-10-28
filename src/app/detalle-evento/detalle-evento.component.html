@@ -1,0 +1,20 @@
+<div class="detalle-evento-container">
+    <h2>Detalles del Evento</h2>
+    <div class="detalle-info">
+      <p *ngIf="data.id"><strong>ID:</strong> {{ data.id }}</p>
+      <p *ngIf="data.nombre"><strong>Nombre:</strong> {{ data.nombre }}</p>
+      <p *ngIf="data.descripcion"><strong>Descripción:</strong> {{ data.descripcion }}</p>
+      <p *ngIf="data.fechaEvento"><strong>Fecha:</strong> {{ data.fechaEvento | date: 'shortDate' }}</p>
+      <p *ngIf="data.localidad"><strong>Localidad:</strong> {{ data.localidad }}</p>
+      <p *ngIf="data.nombreDelRecinto"><strong>Nombre del Recinto:</strong> {{ data.nombreDelRecinto }}</p>
+      <p *ngIf="data.genero"><strong>Género:</strong> {{ data.genero }}</p>
+      <p *ngIf="data.precio !== undefined"><strong>Precio:</strong> {{ data.precio | currency }}</p>
+      <p *ngIf="data.precioMinimo !== undefined"><strong>Precio Mínimo:</strong> {{ data.precioMinimo | currency }}</p>
+      <p *ngIf="data.precioMaximo !== undefined"><strong>Precio Máximo:</strong> {{ data.precioMaximo | currency }}</p>
+    </div>
+    <div class="button-group">
+      <button mat-button color="primary" (click)="irAEditar()">Editar</button>
+      <button mat-button color="warn" (click)="cerrar()">Cerrar</button>
+    </div>
+  </div>
+  
