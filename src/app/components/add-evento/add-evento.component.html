@@ -1,52 +1,48 @@
-<h2 class="titulo">Alta de Eventos</h2>
+<h2 class="title">Añadir Evento</h2>
 
 <p>
-    <span>Nombre: </span>
-    <input type="text" [(ngModel)]="evento.nombre" />
+  <span>Nombre: </span>
+  <input type="text" [(ngModel)]="evento.nombre" />
 </p>
 
 <p>
-    <span>Descripción: </span>
-    <input type="text" [(ngModel)]="evento.descripcion" />
+  <span>Descripción: </span>
+  <input type="text" [(ngModel)]="evento.descripcion" />
 </p>
 
 <p>
-    <span>Fecha del Evento: </span>
-    <input type="date" [(ngModel)]="evento.fechaEvento" />
+  <span>Fecha del Evento: </span>
+  <input type="date" [(ngModel)]="evento.fechaEvento" />
 </p>
 
 <p>
-    <span>Precio Mínimo: </span>
-    <input type="number" [(ngModel)]="evento.precioMinimo" />
+  <span>Precio Mínimo: </span>
+  <input type="number" [(ngModel)]="evento.precioMinimo" />
 </p>
 
 <p>
-    <span>Precio Máximo: </span>
-    <input type="number" [(ngModel)]="evento.precioMaximo" />
+  <span>Precio Máximo: </span>
+  <input type="number" [(ngModel)]="evento.precioMaximo" />
 </p>
 
 <p>
-    <span>Localidad: </span>
-    <input type="text" [(ngModel)]="evento.localidad" />
+  <span>Localidad: </span>
+  <input type="text" [(ngModel)]="evento.localidad" />
 </p>
 
 <p>
-    <span>Nombre del Recinto: </span>
-    <input type="text" [(ngModel)]="evento.nombreDelRecinto" />
+  <span>Nombre del Recinto: </span>
+  <input type="text" [(ngModel)]="evento.nombreDelRecinto" />
 </p>
 
 <p>
-    <span>Género: </span>
-    <select [(ngModel)]="evento.genero">
-        <option *ngFor="let genero of generos" [value]="genero">{{genero}}</option>
-    </select>
+  <span>Género: </span>
+  <input type="text" [(ngModel)]="evento.genero" />
 </p>
 
-<p>
-    <label>Mostrar: </label>
-    <input type="checkbox" [(ngModel)]="evento.mostrar" />
-</p>
+
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
 <p>
-    <button (click)="addEvento()">Añadir Evento</button>
+  <button mat-raised-button color="primary" (click)="addEvento()">Añadir Evento</button>
 </p>

@@ -28,3 +28,15 @@
   text-align: center;
   margin-top: 20px;
 }
+.add-event-button {
+  margin-bottom: 40px;  
+}
+.add-event-button button {
+  font-size: 18px; 
+  background-color: #45a049;  
+  color: white;
+}
+.add-event-button button:hover {
+  background-color: #4CAF50;  
+  color: #f0f0f0; 
+}
